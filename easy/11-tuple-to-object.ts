@@ -20,7 +20,7 @@
 
 /* _____________ Your Code Here _____________ */
 
-type TupleToObject<T extends readonly any[]> = {
+type TupleToObject<T extends readonly (string | number | symbol)[]> = {
   [Property in T[number]]: Property;
 };
 
@@ -50,7 +50,7 @@ type cases = [
 ];
 
 // @ts-expect-error
-TupleToObject<[[1, 2], {}]>;
+type error = TupleToObject<[[1, 2], {}]>
 
 /* _____________ Further Steps _____________ */
 /*
