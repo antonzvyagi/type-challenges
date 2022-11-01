@@ -35,15 +35,10 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyReadonly2<T, K extends keyof T = never> =
-  (K extends never ? never extends K ? true : false : false) extends true
-  ? {
-    readonly [key in keyof T]: T[key]
-  }
-  : {
-    readonly [key in keyof Pick<T, K>]: T[key]
+type MyReadonly2<T, K extends keyof T = keyof T> = {
+    readonly [key in keyof T as key extends K ? key : never]: T[key]
   } & {
-    [key in keyof Omit<T, K>]: T[key]
+    [key in Exclude<keyof T, K>]: T[key]
   }
 
 /* _____________ Test Cases _____________ */
