@@ -25,9 +25,7 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Last<T extends any[]> = T extends [any, ...infer R] 
-? R["length"] extends 1 ? R[0] : Last<R>
-: never;
+type Last<T extends any[]> = T extends [...any, infer R] ? R : never;
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
