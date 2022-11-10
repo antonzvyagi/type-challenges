@@ -20,7 +20,7 @@
 
 /* _____________ Your Code Here _____________ */
 
-type TupleToObject<T extends readonly (string | number | symbol)[]> = {
+type TupleToObject<T extends readonly (keyof any)[]> = {
   [Property in T[number]]: Property;
 };
 

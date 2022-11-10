@@ -20,31 +20,39 @@
   > View on GitHub: https://tsch.js.org/189
 */
 
+
 /* _____________ Your Code Here _____________ */
 
-type MyAwaited<T extends Promise<any>> = T extends Promise<infer R>
-  ? R extends Promise<any>
-    ? MyAwaited<R>
-    : R
-  : T;
+type MyPromise<R> = { then: (onfulfilled: (arg: R) => unknown) => unknown };
+type MyAwaited<T extends MyPromise<unknown>> =
+  T extends MyPromise<infer R>
+    ? R extends MyPromise<unknown>
+      ? MyAwaited<R>
+      : R
+    : never
+
 
 /* _____________ Test Cases _____________ */
-import type { Equal, Expect } from "@type-challenges/utils";
+import type { Equal, Expect } from '@type-challenges/utils'
 
-type X = Promise<string>;
-type Y = Promise<{ field: number }>;
-type Z = Promise<Promise<string | number>>;
-type Z1 = Promise<Promise<Promise<string | boolean>>>;
+type X = Promise<string>
+type Y = Promise<{ field: number }>
+type Z = Promise<Promise<string | number>>
+type Z1 = Promise<Promise<Promise<string | boolean>>>
+type T = { then: (onfulfilled: (arg: number) => any) => any }
 
 type cases = [
   Expect<Equal<MyAwaited<X>, string>>,
   Expect<Equal<MyAwaited<Y>, { field: number }>>,
   Expect<Equal<MyAwaited<Z>, string | number>>,
-  Expect<Equal<MyAwaited<Z1>, string | boolean>>
-];
+  Expect<Equal<MyAwaited<Z1>, string | boolean>>,
+  Expect<Equal<MyAwaited<T>, number>>,
+]
 
 // @ts-expect-error
-type error = MyAwaited<number>;
+type error = MyAwaited<number>
+
+
 
 /* _____________ Further Steps _____________ */
 /*
@@ -52,3 +60,4 @@ type error = MyAwaited<number>;
   > View solutions: https://tsch.js.org/189/solutions
   > More Challenges: https://tsch.js.org
 */
+
