@@ -25,8 +25,6 @@ type Replace<S extends string, From extends string, To extends string> =
     ? `${A}${To}${C}`
     : S
 
-
-type Test = Replace<'foobarbar', '', 'foo'>
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
