@@ -20,9 +20,11 @@
 /* _____________ Your Code Here _____________ */
 
 type Replace<S extends string, From extends string, To extends string> =
+  From extends '' ? S :
   S extends `${infer A}${From}${infer C}`
-  ? From extends `` ? S : `${A}${To}${C}`
-  : S
+    ? `${A}${To}${C}`
+    : S
+
 
 type Test = Replace<'foobarbar', '', 'foo'>
 /* _____________ Test Cases _____________ */
