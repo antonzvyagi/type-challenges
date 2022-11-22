@@ -19,12 +19,12 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Flatten<T extends Array<any>, Result extends Array<any> = []> =
+type Flatten<T extends any[]> =
   T extends [infer First, ...infer Rest]
-    ? First extends Array<any>
-      ? Flatten<[...First, ...Rest], Result>
-      : Flatten<[...Rest], [...Result, First]>
-    : Result
+    ? First extends any[]
+      ? [...Flatten<First>, ...Flatten<Rest>]
+      : [First, ...Flatten<Rest>]
+    : []
 
 type Test = Flatten<[1, 2, [3, 4], [[[5]]]]>
 
