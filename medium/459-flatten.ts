@@ -26,8 +26,6 @@ type Flatten<T extends any[]> =
       : [First, ...Flatten<Rest>]
     : []
 
-type Test = Flatten<[1, 2, [3, 4], [[[5]]]]>
-
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
