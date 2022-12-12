@@ -26,9 +26,7 @@
 /* _____________ Your Code Here _____________ */
 
 type KebabCase<S> = S extends `${infer A}${infer B}` 
-  ? B extends Uncapitalize<B>
-    ? `${Lowercase<A>}${KebabCase<B>}`
-    : `${Lowercase<A>}-${KebabCase<B>}`
+  ? `${Lowercase<A>}${B extends Uncapitalize<B> ? '' : '-'}${KebabCase<B>}` 
   : ''
 
 /* _____________ Test Cases _____________ */
